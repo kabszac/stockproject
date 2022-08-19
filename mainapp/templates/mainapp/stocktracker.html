@@ -101,8 +101,9 @@ StockTracker
   var queryString = window.location.search;
   queryString = queryString.substring(1);
   console.log(queryString);
+  var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
   const stockSocket = new WebSocket(
-    'ws://' +
+    ws_scheme + '://' +
     window.location.host +
     '/ws/stock/' +
     roomName +
