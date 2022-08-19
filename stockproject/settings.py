@@ -12,8 +12,12 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import dj_database_url
+from dotenv import load_dotenv
 import os
 
+load_dotenv()
+env_path = Path('.')/'.env'
+load_dotenv(dotenv_path=env_path)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -130,7 +134,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 #CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
-CELERY_BROKER_URL = os.environ['REDIS_URL']
+CELERY_BROKER_URL = os.getenv("REDIS_URL")
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TASK_SERIALIZER = 'json'
@@ -154,7 +158,7 @@ CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
+            "hosts": [os.getenv('REDIS_URL', 'redis://localhost:6379')],
         },
     },
 }
