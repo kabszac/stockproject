@@ -189,5 +189,9 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
+
+
 #807416380878-9l25dh48qo49h2hi9gbj738pcssqc2m2.apps.googleusercontent.com
 #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
+
+CSRF_TRUSTED_ORIGINS = ["https://stockproject4.herokuapp.com", ]
