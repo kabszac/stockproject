@@ -2,12 +2,15 @@
 from django.http.response import HttpResponse
 from django.shortcuts import render
 from yahoo_fin.stock_info import *
+from django.contrib.auth.decorators import login_required
 import time
 import queue
 from threading import Thread
 from asgiref.sync import sync_to_async
 
 # Create your views here.
+
+@login_required
 def stockPicker(request):
     stock_picker = tickers_sp500()
     print(len(stock_picker))
@@ -22,8 +25,8 @@ def checkAuthenticated(request):
 
 async def stockTracker(request):
     is_loginned = await checkAuthenticated(request)
-    if not is_loginned:
-        return HttpResponse("Login First")
+    # if not is_loginned:
+    #     return HttpResponse("Login First")
     stockpicker = request.GET.getlist('stockpicker')
     stockshare=str(stockpicker)[1:-1]
     

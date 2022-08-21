@@ -30,9 +30,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-f1i5m44ft)$zzbb!)cb2vhei&4@@vm#)$e=-q2dy%&sqtr0fz$"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['stockproject4.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['stockproject4.herokuapp.com', '127.0.0.1',]
 
 
 # Application definition
@@ -45,9 +45,14 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'django.contrib.sites',
     'mainapp',
     'django_celery_results',
     'django_celery_beat',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
@@ -162,3 +167,27 @@ CHANNEL_LAYERS = {
         },
     },
 }
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend'
+]
+
+SITE_ID = 1
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = 'account_login'
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
+
+#807416380878-9l25dh48qo49h2hi9gbj738pcssqc2m2.apps.googleusercontent.com
+#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
